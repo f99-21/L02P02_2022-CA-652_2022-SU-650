@@ -37,8 +37,25 @@ namespace L02P02_2022_CA_652_2022_SU_650.Controllers
             _context.clientes.Add(nuevoCliente);
             _context.SaveChanges();
 
+            HttpContext.Session.SetString("ClienteNombre", nuevoCliente.nombre);
+            HttpContext.Session.SetString("ClienteApellido", nuevoCliente.apellido);
+            HttpContext.Session.SetString("ClienteEmail", nuevoCliente.email);
+            HttpContext.Session.SetString("ClienteDireccion", nuevoCliente.direccion);
+
+            var pedido = new pedido_encabezado
+            {
+                id_cliente = nuevoCliente.id,
+                cantidad_libros = 0,
+                total = 0
+            };
+
+            _context.pedido_encabezado.Add(pedido);
+            _context.SaveChanges();
+
+            HttpContext.Session.SetInt32("PedidoId", pedido.id);
+
             //Cambiar a controlador de pedidos
-            return View();
+            return RedirectToAction("seleccionarLibro", "pedido_encabezado");
         }
     }
 }

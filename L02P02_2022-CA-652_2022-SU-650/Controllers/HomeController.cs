@@ -23,6 +23,13 @@ namespace L02P02_2022_CA_652_2022_SU_650.Controllers
             return View();
         }
 
+        public IActionResult Logout() 
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("agregarCliente", "clientes");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

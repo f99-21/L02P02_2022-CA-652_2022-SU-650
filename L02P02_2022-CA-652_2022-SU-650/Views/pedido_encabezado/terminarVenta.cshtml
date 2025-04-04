@@ -1,0 +1,62 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Terminar venta";
+}
+
+<div class="bg-dark my-5 py-5">
+    <h3 class="text-light text-center my-5 py-5">Venta de Libros</h3>
+    <h6 class="text-secondary text-center pb-3">Seleccione los libros y posterior ingrese sus datos</h6>
+</div>
+
+
+<div class="container">
+    <div class="d-flex justify-content-evenly row">
+        <div class="col-sm-6">
+            <div class="form-group row mb-4">
+                <div class="col-sm-6">
+                    <label>Nombre</label>
+                    @Html.TextBox("nombre", ViewData["ClienteNombre"], new { @class = "form-control" })
+                </div>
+                <div class="col-sm-6">
+                    <label>Apellido</label>
+                    @Html.TextBox("apellido", ViewData["ClienteApellido"], new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row my-4">
+                <label>Email</label>
+                @Html.TextBox("email", ViewData["ClienteEmail"], new { @class = "form-control" })
+            </div>
+            <div class="form-group row my-4">
+                <label>Direccion</label>
+                @Html.TextArea("direccion", (string)ViewData["ClienteDireccion"], 4, 50, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h4 class="text-primary">Carrito</h4>
+            <table>
+                <tbody>
+                    @foreach (var libro in (IEnumerable<dynamic>)ViewData["librosSeleccionados"])
+                    {
+                        <tr>
+                            <td>@libro.Libro</td>
+                            <td>@libro.Precio</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <h5 class="text-primary">@ViewData["total"]</h5>
+            @using (Html.BeginForm("Logout", "Home", FormMethod.Post))
+            {
+                <button type="submit" class="btn btn-success">Cerrar venta</button>
+            }
+        </div>
+    </div>
+</div>
+
+
+<footer class="bg-dark mt-5">
+    <p class="text-light text-center mt-2">@DateTime.Now.ToString() José Chinchilla</p><br />
+    <p class="text-light text-center">@DateTime.Now.ToString() Fabricio Sandoval</p><br />
+</footer>

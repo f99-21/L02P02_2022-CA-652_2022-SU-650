@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Seleccion de libros";
+}
+
+<div class="bg-dark my-5 py-5">
+    <h3 class="text-light text-center my-5 py-5">Venta de Libros</h3>
+    <h6 class="text-secondary text-center pb-3">Seleccione los libros y posterior ingrese sus datos</h6>
+</div>
+
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <div>
+            <h6 class="text-primary">Libros</h6>
+            <table>
+                <tbody>
+                    @foreach (var libro in (IEnumerable<dynamic>)ViewData["listaLibros"])
+                    {
+                        <tr>
+                            <td>@libro.Libro</td>
+                            <td>@libro.Autor</td>
+                            <td>@libro.Precio</td>
+                            <td>
+                                @using (Html.BeginForm("agregarLibro", "pedido_encabezado", FormMethod.Post))
+                                {
+                                    <input type="hidden" name="id_libro" value="@libro.id_libro"/>
+                                    <button type="submit" class="btn btn-success">+ Agregar</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h6 class="text-primary">Total libros</h6>
+            <table>
+                <tbody>
+                    @foreach (var libro in (IEnumerable<dynamic>)ViewData["librosSeleccionados"])
+                    {
+                        <tr>
+                            <td>@libro.Libro</td>
+                            <td>@libro.Precio</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @using (Html.BeginForm("terminarVenta", "pedido_encabezado", FormMethod.Post))
+            {
+                <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+            }
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark mt-5">
+    <p class="text-light text-center mt-2">@DateTime.Now.ToString() José Chinchilla</p><br />
+    <p class="text-light text-center">@DateTime.Now.ToString() Fabricio Sandoval</p><br />
+</footer>

@@ -11,7 +11,7 @@ namespace L02P02_2022_CA_652_2022_SU_650.Models
 
         public int id_cliente { get; set; }
 
-        public int cantidad_libro { get; set; }
+        public int cantidad_libros { get; set; }
 
         public decimal total { get; set; }
     }
